@@ -1,18 +1,20 @@
 # AzureP2S
-Azure point to site connectivity
+Azure point-to-site connectivity
 
 The aim of creating this lab is to understand and test how you can connect to infrastructure vent resources from one specific machine or few machines.
 
-P2S works on certification and hence you need a root certificate which will use for authentication form azure and client certificate which is required for client machine authentication.
+P2S works on certification and hence you need a root certificate which will use for authentication from azure and a client certificate which is required for client-machine authentication.
 
 1. Create a VNET with address space : 172.16.0.0/16
-2. Create a subnet : 172.16.1.0/24
-3. Create a Gateway subnet : 172.16.200.0/24
+2. Create a subnet: 172.16.1.0/24
+3. Create a Gateway subnet: 172.16.200.0/24
 4. Create a Virtual network gateway (Route based).
-5. Create s self signed certificate by using below command:
+5. Create a self-signed certificate by using the below command:
+   
    ```$cert = New-SelfSignedCertificate -Type Custom -KeySpec Signature ` -Subject "CN=P2SRootCert" -KeyExportPolicy Exportable ` -HashAlgorithm sha256 -KeyLength 2048 ` -CertStoreLocation "Cert:\CurrentUser\My" -KeyUsageProperty Sign -KeyUsage CertSign ```
+   
 Point-to-Site connections require the certificate public key .cer file (not the private key) to be uploaded to Azure.
-1. Export the certificate to .cer file from certificate manager by using below steps:
+1. Export the certificate to .cer file from the certificate manager by using below steps:
 2. To obtain a .cer file from the certificate, open Manage user certificates. Locate the self-signed root certificate, typically in 'Certificates - Current User\Personal\Certificates', and right-click. Click All Tasks, and then click Export. This opens the Certificate Export Wizard.
 3. In the Wizard, click Next. Select No, do not export the private key, and then click Next.
 4. On the Export File Format page, select Base-64 encoded X.509 (.CER)., and then click Next.
@@ -20,9 +22,9 @@ Point-to-Site connections require the certificate public key .cer file (not the 
 6. Click Finish to export the certificate. You see The export was successful. Click OK to close the wizard.
 
 
-Next once the VON gateway created add the client address pool and certificate on azure. 
+Next, once the VPN gateway is created add the client address pool and certificate on azure. 
 1. Navigate to Virtual Network gateway and go to point to site connection.
-2. Add client address pool (local machine which you want to have access to servers and resources)
+2. Add client address pool (local machine to which you want to have access to servers and resources)
 3. Open the certificate file in notepad and copy the content.
 4. Add that content into azure portal in certificate section and create root certificate and save the configuration.
 5. If you want to connect to server other then the machine you configure P2S you need to install client certificate. Follow below steps for the same:
