@@ -10,7 +10,7 @@ P2S works on certification and hence you need a root certificate which will use 
 3. Create a Gateway subnet : 172.16.200.0/24
 4. Create a Virtual network gateway (Route based).
 5. Create s self signed certificate by using below command:
-6. $cert = New-SelfSignedCertificate -Type Custom -KeySpec Signature ` -Subject "CN=P2SRootCert" -KeyExportPolicy Exportable ` -HashAlgorithm sha256 -KeyLength 2048 ` -CertStoreLocation "Cert:\CurrentUser\My" -KeyUsageProperty Sign -KeyUsage CertSign 
+   ```$cert = New-SelfSignedCertificate -Type Custom -KeySpec Signature ` -Subject "CN=P2SRootCert" -KeyExportPolicy Exportable ` -HashAlgorithm sha256 -KeyLength 2048 ` -CertStoreLocation "Cert:\CurrentUser\My" -KeyUsageProperty Sign -KeyUsage CertSign ```
 Point-to-Site connections require the certificate public key .cer file (not the private key) to be uploaded to Azure.
 1. Export the certificate to .cer file from certificate manager by using below steps:
 2. To obtain a .cer file from the certificate, open Manage user certificates. Locate the self-signed root certificate, typically in 'Certificates - Current User\Personal\Certificates', and right-click. Click All Tasks, and then click Export. This opens the Certificate Export Wizard.
